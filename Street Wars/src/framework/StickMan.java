@@ -10,16 +10,21 @@ public class StickMan extends Entity {
 	//0 = right
 	//1 = left
 	public int facing = 0;
-	private int type;
+	private Side side;
 	
-	public StickMan(float x, float y, float velX, float velY, int type) {
+	public StickMan(float x, float y, float velX, float velY, Side side) {
 		super(x, y, velX, velY);
-		this.type = type;
+		this.side = side;
 		
-		if(type == 2){
+		//type 2 = friend
+		//type 1 = foe
+		
+		if(side == Side.friend){
 			health = 2;
-		} else {
+			System.out.println("FRIEND CREATED");
+		} else if(side == Side.foe){
 			health = 1;
+			System.out.println("FOE CREATED");
 		}
 	}
 
@@ -27,21 +32,21 @@ public class StickMan extends Entity {
 	public void tick() {
 		x += velX;
 		y += velY;
-		
+		System.out.println("health: " + health + " side: " + side);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if(type == 2){
+		if(side == Side.friend){
 			g.setColor(Color.BLUE);
-		} else {
+		} else if(side == Side.foe){
 			g.setColor(Color.RED);
 		}
 		g.fillRect((int)x, (int)y, 32, 64);
 	}
 	
-	public int getType(){
-		return type;
+	public Side getSide(){
+		return side;
 	}
 	
 	public Rectangle getBounds(){
@@ -50,7 +55,7 @@ public class StickMan extends Entity {
 
 	@Override
 	public String toString() {
-		return "StickMan [facing=" + facing + ", type=" + type + ", x=" + x + ", y=" + y + ", velX=" + velX + ", velY="
+		return "StickMan [facing=" + facing + ", side=" + side + ", x=" + x + ", y=" + y + ", velX=" + velX + ", velY="
 				+ velY + ", gravity=" + gravity + ", falling=" + falling + ", health=" + health + "]";
 	}
 

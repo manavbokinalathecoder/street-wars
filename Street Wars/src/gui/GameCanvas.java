@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import framework.Handler;
+import framework.Side;
 import framework.StickMan;
 
 public class GameCanvas extends Canvas implements Runnable {
@@ -18,10 +19,12 @@ public class GameCanvas extends Canvas implements Runnable {
 
 	static Handler handler = new Handler();
 
+	PickBar p = new PickBar();
+	
 	public GameCanvas() {
-		handler.addEntity(new StickMan(0, 0, 5, 0, 2));
-		handler.addEntity(new StickMan(600, 0, -5, 0, 1));
-		handler.addEntity(new StickMan(800, 0, -5, 0, 1));
+		handler.addEntity(new StickMan(0, 0, 5, 0, Side.friend));
+		handler.addEntity(new StickMan(600, 0, -5, 0, Side.foe));
+		handler.addEntity(new StickMan(800, 0, -5, 0, Side.foe));
 	}
 
 	public void run() {
@@ -92,6 +95,8 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		handler.render(g);
 
+		p.render(g);
+		
 		g.dispose();
 		bs.show();
 	}
