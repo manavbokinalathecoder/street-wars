@@ -11,6 +11,8 @@ public class Handler {
 	public static final Point PLAYER_SPAWN_POINT = new Point(0, 500);
 	public static final Point ENEMY_SPAWN_POINT = new Point(700, 500);
 	
+	
+	
 	public Handler(){
 		entities = new ArrayList<Entity>();
 	}
@@ -42,16 +44,18 @@ public class Handler {
 	public void collision() throws Exception{
 		for(Entity e : entities){
 			for(Entity i : entities){
-				if(!i.equals(e)){
+				if(!(i.equals(e))){
 					if(e.getBounds().intersects(i.getBounds())){
-						e.health--;
-						i.health--;
-						e.toString();
-						System.out.println(i.toString());
+						removeHealth(i);
+						removeHealth(e);
 					}
 				}
 			}
 		}
+	}
+	
+	public void removeHealth(Entity e){
+		e.health--;
 	}
 	
 	public void removeAllDead(){
